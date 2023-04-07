@@ -2,11 +2,18 @@
 title: "Tidyverse"
 ---
 
-## Quarto
+## Introduction
 
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+The goal of the package is to detail a package in Tidyverse. We will discuss forcats 
 
-```{r}
-
-This is a test.1
+```{r, load-data}
+coll <- read.csv("https://raw.githubusercontent.com/gc521/DATA-607-Tidyverse/main/recent-grads.csv")
+install.packages("tidyverse")
+library(tidyverse)
 ```
+```{r}
+glimpse(coll)
+
+
+```
+
