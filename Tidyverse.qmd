@@ -4,16 +4,27 @@ title: "Tidyverse"
 
 ## Introduction
 
-The goal of the package is to detail a package in Tidyverse. We will discuss forcats 
+The goal of the package is to detail a package in Tidyverse. We will discuss forcats/dplyr. Dplyr is much more versatile by nature  
 
-```{r, load-data}
-coll <- read.csv("https://raw.githubusercontent.com/gc521/DATA-607-Tidyverse/main/recent-grads.csv")
+```{r, load-data, message=FALSE, echo=TRUE}
+women <- read.csv("https://raw.githubusercontent.com/gc521/DATA-607-Tidyverse/main/women-stem.csv")
 install.packages("tidyverse")
 library(tidyverse)
+install.packages('DT')
+library(DT)
 ```
-```{r}
-glimpse(coll)
+Fac
 
+```{r, fct}
+women$Major_category <- as.factor(women$Major_category)
+women$Major_category <- fct_infreq(women$Major_category)
+summary(women$Major_category)
+
+
+
+Major_category <- as.data.frame(summary(women$Major_category))
+
+datatable(Major_category)
 
 ```
 
