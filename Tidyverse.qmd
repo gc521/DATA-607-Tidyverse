@@ -4,7 +4,7 @@ title: "Tidyverse"
 
 ## Introduction
 
-The goal of the package is to detail a package in Tidyverse. We will discuss forcats/dplyr. Dplyr is much more versatile by nature  
+The goal of the package is to detail a package in Tidyverse. We will discuss forcats/dplyr. Dplyr is much more versatile by nature. We will also take a look at the purr package.   
 
 ```{r, load-data, message=FALSE, echo=TRUE}
 women <- read.csv("https://raw.githubusercontent.com/gc521/DATA-607-Tidyverse/main/women-stem.csv")
@@ -13,7 +13,7 @@ library(tidyverse)
 install.packages('DT')
 library(DT)
 ```
-Fac
+Fac_infreq function can be called to quickly order factor variable by appearance/level of frequency. This makes the appearance of tables/graphs more apparent. We also make use of the DPLYR to create a count of the major_category variable. 
 
 ```{r, fct}
 women$Major_category <- as.factor(women$Major_category)
@@ -21,10 +21,20 @@ women$Major_category <- fct_infreq(women$Major_category)
 summary(women$Major_category)
 
 
-
 Major_category <- as.data.frame(summary(women$Major_category))
 
-datatable(Major_category)
+datatable(Major_category, colnames = c("Count"))
+
+women <- women |> group_by(Major_category) |> mutate(Count = n())
+
+
+p <-ggplot(women, aes(x=Major_category, fill = Major_category)) + geom_bar() + theme_dark() + coord_flip() + geom_text(aes(y=1, label = Count), hjust = -2.0, color = 'white')
+
+
+
+
+
+
 
 ```
 
