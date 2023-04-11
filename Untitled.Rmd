@@ -1,0 +1,41 @@
+---
+title: "tidyverse"
+author: "Susanna Wong"
+date: "2023-04-11"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+```{r}
+raw_data <- read.csv("https://raw.githubusercontent.com/fivethirtyeight/data/master/college-majors/recent-grads.csv")
+```
+
+# Which major category has the highest share of women? {.tabset}
+
+```{r pressure, echo=FALSE}
+library(dplyr)
+library(DT)
+
+college_major <- raw_data %>%
+  group_by(Major_category) %>%
+  summarise(Total = sum(Total,na.rm=TRUE), Men = sum(Men,na.rm=TRUE), Women = sum(Women,na.rm=TRUE)) %>%
+  mutate(ShareWomen = Women/Total)
+
+datatable(college_major)
+```
+
+## Including Plots
+
+```{r}
+# install.packages('ggplot2')
+library(ggplot2)
+
+ggplot(data = college_major, aes(x = reorder(Major_category, ShareWomen), y = ShareWomen)) + geom_bar(stat="identity") + coord_flip() 
+```
+
+
