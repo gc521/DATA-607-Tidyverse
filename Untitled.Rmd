@@ -42,7 +42,7 @@ Next, use `group_by()` function from the `dplyr` package to group rows by column
 
     college_major <- raw_data %>%
       group_by(Major_category) %>%
-o
+
 ```{r pressure, echo=FALSE}
 library(dplyr)
 library(DT)
