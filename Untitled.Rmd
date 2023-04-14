@@ -9,13 +9,39 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
+# Load data
 
-```{r}
+The data is in store in a csv file that can be found here.
+
+Use `read.csv` from `readr` package to read the csv file as a dataframe.
+Use `<-` to store the data as a variable in R.
+Below, we store the data as `raw_data`.
+You can use `glimpse()` from `dplyr` package to get a glimpse of the data.
+
+```{r, message=FALSE}
 raw_data <- read.csv("https://raw.githubusercontent.com/fivethirtyeight/data/master/college-majors/recent-grads.csv")
+library(DT)
+datatable(raw_data, options = list(scrollX = TRUE))
 ```
 
 # Which major category has the highest share of women? {.tabset}
+
+## Analysis
+
+In the `raw_data`, there are detailed information for each of the 173 majors.
+In order to answer the question, we need to group the major category, and find the total people, total women, and total men for each major category.
+
+It seems that the `raw_data` is already tidied.
+We should create a new dataframe for our analysis and make no changes to the `raw_data`.
+
+Use `%>%` from the `magrittr` package to pipe the `raw_data` into our new dataframe, `college_major`.
+
+    college_major <- raw_data %>%
+
+Next, use `group_by()` function from the `dplyr` package to group rows by column value, `Major_category`.
+
+    college_major <- raw_data %>%
+      group_by(Major_category) %>%
 
 ```{r pressure, echo=FALSE}
 library(dplyr)
@@ -29,7 +55,7 @@ college_major <- raw_data %>%
 datatable(college_major)
 ```
 
-## Including Plots
+# Including Plots
 
 ```{r}
 # install.packages('ggplot2')
@@ -38,4 +64,17 @@ library(ggplot2)
 ggplot(data = college_major, aes(x = reorder(Major_category, ShareWomen), y = ShareWomen)) + geom_bar(stat="identity") + coord_flip() 
 ```
 
+# Source
+
+Below are links to get more information related to the functions in the mentioned packages. 
+
+<https://www.tidyverse.org/packages/>
+
+https://readr.tidyverse.org/
+
+<https://dplyr.tidyverse.org/reference/index.html>
+
+<https://ggplot2.tidyverse.org/reference/>
+
+https://rstudio.github.io/DT/
 
